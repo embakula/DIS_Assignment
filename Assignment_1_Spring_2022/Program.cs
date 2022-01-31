@@ -46,7 +46,7 @@ namespace DIS_Assignmnet1_SPRING_2022
             int[,] bulls_grid = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
             Console.WriteLine("Q4:");
             int diagSum = DiagonalSum(bulls_grid);
-            Console.WriteLine("The sum of diagonal elements in the bulls grid is {0}:", diagSum);
+            Console.WriteLine("The sum of diagonal elements in the bulls grid is: {0}", diagSum);
             Console.WriteLine();
 
             //Question 5:
@@ -58,7 +58,7 @@ namespace DIS_Assignmnet1_SPRING_2022
             Console.WriteLine();
 
             //Quesiton 6:
-            string bulls_string6 = "mumacollegeofbusiness";
+            string bulls_string6 = "mumacollegeofbucsiness";
             char ch ='c';
             string reversed_string = ReversePrefix(bulls_string6, ch);
             Console.WriteLine("Q6:");
@@ -79,6 +79,7 @@ namespace DIS_Assignmnet1_SPRING_2022
         Input: s = "aeiou"
         Output: ""
 
+
         Constraints:
         •	0 <= s.length <= 10000
         s consists of uppercase and lowercase letters
@@ -90,8 +91,17 @@ namespace DIS_Assignmnet1_SPRING_2022
             try
             {
                 // write your code here
-                String final_string ="";
-                return final_string;
+                string final_string = "";  //Taking an empty string
+                for (int i = 0; i < s.Length; i++) //For loop for checking if each char is an vowel or not
+                {
+                    char c = s[i];
+                    //checking if the iterated value is vowel or not; if it's not a vowel, the value will return and added to the string else the value will be ignored
+                    if (!(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'))
+                    {
+                        final_string += c; //value will be increamented
+                    }
+                }
+                return final_string; // returns if not vowel
             }
             catch (Exception)
             {
@@ -126,7 +136,15 @@ namespace DIS_Assignmnet1_SPRING_2022
             try
             {
                 // write your code here.
-                return false;
+                string s1="", s2="";
+                for (int i = 0; i < bulls_string1.Length; i++) //concatinating string1 using for loop
+                    s1 += bulls_string1[i];
+                for (int i = 0; i < bulls_string2.Length; i++) //concatinating string 2 using for loop
+                    s2 +=  bulls_string2[i];
+                if (s1 == s2) //comparing both the strings and returning boolean
+                    return true;
+                else
+                    return false;
             }
             catch (Exception)
             {
@@ -159,7 +177,14 @@ namespace DIS_Assignmnet1_SPRING_2022
             try
             {
                 // write your code here
-                return 0;
+                int unique_sum = 0;    //Initializing an empty variable to store the sum
+                int[] count = new int[101]; 
+                foreach (int i in bull_bucks)  //Itirating through all integers in bull_bucks
+                    count[i]++; //If the number doesn't repeat, number will be added to the sum else the number will be ignored
+                for (int i = 1; i < 101; i++)   //For loop to check if the number is repeating or not
+                    if (count[i] == 1)
+                        unique_sum += i;
+                return unique_sum; //returns the final sum
 
             }
             catch (Exception)
@@ -193,8 +218,17 @@ namespace DIS_Assignmnet1_SPRING_2022
             try
             {
                 // write your code here.
-
-                return 0;
+                int diagSum = 0;
+                int i, j;
+                for (i = 0,j = bulls_grid.GetLength(1) - 1; i < bulls_grid.GetLength(1); i++, --j) //itirating each sublist to add the diagnol elements
+                {
+                    diagSum += bulls_grid[i,i];
+                    if (i != j) //if both the diagnols doesn't intersect adding that element
+                    {
+                        diagSum += bulls_grid[i,j];
+                    }
+                }
+                return diagSum;
             }
             catch (Exception e)
             {
@@ -225,7 +259,14 @@ namespace DIS_Assignmnet1_SPRING_2022
             try
             {
                 // write your code here.
-                return "null";
+                {
+                    char[] rotated_string = new char[bulls_string.Length]; //creating a new character array from the string
+                    for (int i = 0; i < bulls_string.Length; i++)  
+                    {
+                        rotated_string[indices[i]] = bulls_string[i]; //iterating all the indices and adding those chars to the new char array
+                    }
+                    return new string(rotated_string); //returning the new char array as string 
+                }
             }
             catch (Exception e)
             {
@@ -264,8 +305,21 @@ namespace DIS_Assignmnet1_SPRING_2022
         {
             try
             {
-                String prefix_string ="";
-                return prefix_string;
+                var reversed_string = bulls_string6.ToCharArray(); //converting a string to char array
+                for (int i = 0; i < reversed_string.Length; i++) //iterating through the char array to find the character
+                {
+                    if (reversed_string[i] == ch) 
+                    {
+                        for (int j = 0; j <= i / 2; j++) //when the char is found, reversing the elements till that element
+                        {
+                            var t = reversed_string[j];
+                            reversed_string[j] = reversed_string[i - j];
+                            reversed_string[i - j] = t;
+                        }
+                        break; 
+                    }
+                }
+                return new string(reversed_string);
             }
             catch (Exception)
             {
@@ -276,3 +330,13 @@ namespace DIS_Assignmnet1_SPRING_2022
         }
     }
 }
+
+/*
+ Self Reflection
+Question 1: Time taken - 10mins; it would have been easier by using the in-built functions. I felt this one as an easy one
+Question 2: Time taken - 10mins; in-built functions can be used for more effective way. I felt the difficulty as easy.
+Question 3: Time taken - 12-15mins; Difficulty is moderate
+Question 4: Time taken - 15mins; difficulty is moderate to difficult
+Question 5: Time taken - 20 mins; difficulty is moderate
+Question 6: Time taken - 45mins; difficulty is difficult. For this one, I missed to break the loop initially and hence some of the cases were failing, it took a lot of time for me
+ */
